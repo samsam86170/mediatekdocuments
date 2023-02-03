@@ -17,7 +17,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = "https://voyages-dhaussy.com/";
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -35,7 +35,14 @@ namespace MediaTekDocuments.dal
         /// </summary>
         private const string POST = "POST";
         /// <summary>
-        /// méthode HTTP pour update
+        /// méthode HTTP pour modifier
+        /// </summary>
+        private const string PUT = "PUT";
+
+        /// <summary>
+        /// méthode HTTP pour supprimer
+        /// </summary>
+        private const string DELETE = "DELETE";
 
         /// <summary>
         /// Méthode privée pour créer un singleton
@@ -110,6 +117,16 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Retourne toutes les documents à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Document</returns>
+        public List<Document> GetAllDocuments(string idDocument)
+        {
+            List<Document> lesDocuments = TraitementRecup<Document>(GET, "document/" + idDocument);
+            return lesDocuments;
+        }
+
+        /// <summary>
         /// Retourne toutes les dvd à partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Dvd</returns>
@@ -160,6 +177,265 @@ namespace MediaTekDocuments.dal
             }
             return false; 
         }
+
+        /// <summary>
+        /// Ajout d'un nouveau document dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool CreerDocument(string Id, string Titre, string Image, string IdRayon, string IdPublic, string IdGenre)
+        {
+            String jsonCreerDocument = "{ \"id\" : \""+Id+ "\", \"titre\" : \""+Titre+ "\", \"image\" : \""+Image+ "\", \"idRayon\" : \""+IdRayon+ "\", \"idPublic\" : \""+IdPublic+ "\", \"idGenre\" : \""+IdGenre+ "\"}";
+            Console.WriteLine("jsonCreerDocument" + jsonCreerDocument);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Document> liste = TraitementRecup<Document>(POST, "document/" + jsonCreerDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Modification d'un document dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool ModifierDocument(string Id, string Titre, string Image, string IdGenre, string IdPublic, string IdRayon)
+        {
+            String jsonModifierDocument = "{ \"id\" : \"" + Id + "\", \"titre\" : \"" + Titre + "\", \"image\" : \"" + Image + "\", \"idGenre\" : \"" + IdGenre + "\", \"idPublic\" : \"" + IdPublic + "\", \"idRayon\" : \"" + IdRayon + "\"}";
+            Console.WriteLine("jsonModifierDocument" + jsonModifierDocument);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Document> liste = TraitementRecup<Document>(PUT, "document/" + Id + "/" + jsonModifierDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Suppression d'un document dans la base de données
+        /// </summary>
+        /// <param name="Id">Id du document à supprimer</param>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool SupprimerDocument(string Id)
+        {
+            String jsonIdDocument = "{ \"id\" : \"" + Id + "\"}";
+            Console.WriteLine("jsonIdDocument" + jsonIdDocument);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Document> liste = TraitementRecup<Document>(DELETE, "document/" + jsonIdDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Ajout d'un nouveau livre dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool CreerLivre(string Id, string Isbn, string Auteur, string Collection)
+        {
+            String jsonCreerLivre = "{ \"id\" : \"" + Id + "\", \"isbn\" : \"" + Isbn + "\", \"auteur\" : \"" + Auteur + "\", \"collection\" : \"" + Collection + "\"}";
+            Console.WriteLine("jsonCreerLivre" + jsonCreerLivre);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Document> liste = TraitementRecup<Document>(POST, "livre/" + jsonCreerLivre);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Modification d'un livre dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool ModifierLivre(string Id, string Isbn, string Auteur, string Collection)
+        {
+            String jsonModifierLivre = "{ \"id\" : \"" + Id + "\", \"isbn\" : \"" + Isbn + "\", \"auteur\" : \"" + Auteur + "\", \"collection\" : \"" + Collection + "\"}";
+            Console.WriteLine("jsonModifierLivre" + jsonModifierLivre);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Livre> liste = TraitementRecup<Livre>(PUT, "livre/" + Id + "/" + jsonModifierLivre);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Suppression d'un livre dans la base de données
+        /// </summary>
+        /// <param name="Id">Id du livre à supprimer</param>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool SupprimerLivre(string Id)
+        {
+            String jsonIdLivre = "{ \"id\" : \""+Id+ "\"}";
+            Console.WriteLine("jsonIdLivre" + jsonIdLivre);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Livre> liste = TraitementRecup<Livre>(DELETE, "livre/"+ jsonIdLivre);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Ajout d'un nouveau dvd dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool CreerDvd(string Id, string Synopsis, string Realisateur, int Duree)
+        {
+            String jsonCreerDvd = "{ \"id\" : \"" + Id + "\", \"synopsis\" : \"" + Synopsis + "\", \"realisateur\" : \"" + Realisateur + "\", \"duree\" : \"" + Duree + "\"}";
+            Console.WriteLine("jsonCreerDvd" + jsonCreerDvd);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Dvd> liste = TraitementRecup<Dvd>(POST, "dvd/" + jsonCreerDvd);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Modification d'un dvd dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool ModifierDvd(string Id, string Synopsis, string Realisateur, int Duree)
+        {
+            String jsonModifierDvd = "{ \"id\" : \"" + Id + "\", \"synopsis\" : \"" + Synopsis + "\", \"realisateur\" : \"" + Realisateur + "\", \"duree\" : \"" + Duree + "\"}";
+            Console.WriteLine("jsonModifierDvd" + jsonModifierDvd);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Dvd> liste = TraitementRecup<Dvd>(PUT, "dvd/" + Id + "/" + jsonModifierDvd);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Suppression d'un dvd dans la base de données
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public bool SupprimerDvd(string Id)
+        {
+            String jsonIdDvd = "{ \"id\" : \"" + Id + "\"}";
+            Console.WriteLine("jsonIdDvd" + jsonIdDvd);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Dvd> liste = TraitementRecup<Dvd>(DELETE, "dvd/" + jsonIdDvd);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Ajout d'une nouvelle revue dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool CreerRevue(string Id, string Periodicite, int DelaiMiseADispo)
+        {
+            String jsonCreerRevue = "{ \"id\" : \"" + Id + "\", \"periodicite\" : \"" + Periodicite + "\", \"delaiMiseADispo\" : \"" + DelaiMiseADispo + "\"}";
+            Console.WriteLine("jsonCreerRevue" + jsonCreerRevue);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Revue> liste = TraitementRecup<Revue>(POST, "revue/" + jsonCreerRevue);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Modification d'une revue dans la base de données
+        /// </summary>
+        /// <returns>True si l'insertion a pu se faire</returns>
+        public bool ModifierRevue(string Id, string Periodicite, int DelaiMiseADispo)
+        {
+            String jsonModifierRevue = "{ \"id\" : \"" + Id + "\", \"periodicite\" : \"" + Periodicite + "\", \"delaiMiseADispo\" : \"" + DelaiMiseADispo + "\"}";
+            Console.WriteLine("jsonModifierRevue" + jsonModifierRevue);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Revue> liste = TraitementRecup<Revue>(PUT, "revue/" + Id + "/" + jsonModifierRevue);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Suppression d'une revue dans la base de données
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public bool SupprimerRevue(string Id)
+        {
+            String jsonIdRevue = "{ \"id\" : \"" + Id + "\"}";
+            Console.WriteLine("jsonIdRevue" + jsonIdRevue);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Revue> liste = TraitementRecup<Revue>(DELETE, "revue/" + jsonIdRevue);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
