@@ -45,7 +45,7 @@ END$$
 DELIMITER ;
 
 
-Trigger sur la table LIVRE - Ajoute l'id du livre ajouté dans la table LIVRE, à la table DOCUMENT :
+Trigger sur la table LIVRE - Ajoute l'id du livre ajouté dans la table LIVRE, à la table LIVRES_DVD :
 
 DELIMITER $$
 CREATE TRIGGER `tr_livre_ibfk_1` BEFORE INSERT ON `livre`

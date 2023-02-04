@@ -181,6 +181,12 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Ajout d'un nouveau document dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Titre"></param>
+        /// <param name="Image"></param>
+        /// <param name="IdRayon"></param>
+        /// <param name="IdPublic"></param>
+        /// <param name="IdGenre"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool CreerDocument(string Id, string Titre, string Image, string IdRayon, string IdPublic, string IdGenre)
         {
@@ -202,6 +208,12 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Modification d'un document dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Titre"></param>
+        /// <param name="Image"></param>
+        /// <param name="IdGenre"></param>
+        /// <param name="IdPublic"></param>
+        /// <param name="IdRayon"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool ModifierDocument(string Id, string Titre, string Image, string IdGenre, string IdPublic, string IdRayon)
         {
@@ -245,6 +257,10 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Ajout d'un nouveau livre dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Isbn"></param>
+        /// <param name="Auteur"></param>
+        /// <param name="Collection"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool CreerLivre(string Id, string Isbn, string Auteur, string Collection)
         {
@@ -263,9 +279,14 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
+
         /// <summary>
         /// Modification d'un livre dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Isbn"></param>
+        /// <param name="Auteur"></param>
+        /// <param name="Collection"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool ModifierLivre(string Id, string Isbn, string Auteur, string Collection)
         {
@@ -307,10 +328,13 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
-
         /// <summary>
         /// Ajout d'un nouveau dvd dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Synopsis"></param>
+        /// <param name="Realisateur"></param>
+        /// <param name="Duree"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool CreerDvd(string Id, string Synopsis, string Realisateur, int Duree)
         {
@@ -332,6 +356,10 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Modification d'un dvd dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Synopsis"></param>
+        /// <param name="Realisateur"></param>
+        /// <param name="Duree"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool ModifierDvd(string Id, string Synopsis, string Realisateur, int Duree)
         {
@@ -375,6 +403,9 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Ajout d'une nouvelle revue dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Periodicite"></param>
+        /// <param name="DelaiMiseADispo"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool CreerRevue(string Id, string Periodicite, int DelaiMiseADispo)
         {
@@ -396,6 +427,9 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Modification d'une revue dans la base de données
         /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Periodicite"></param>
+        /// <param name="DelaiMiseADispo"></param>
         /// <returns>True si l'insertion a pu se faire</returns>
         public bool ModifierRevue(string Id, string Periodicite, int DelaiMiseADispo)
         {

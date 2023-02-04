@@ -435,7 +435,7 @@ namespace MediaTekDocuments.view
         {      
             if (dgvLivresListe.SelectedRows.Count > 0)
             {
-                // Récupération de l'objet Livresélectionné dans la DataGridView
+                // Récupération de l'objet Livre sélectionné dans la DataGridView
                 Livre selectedLivre = (Livre)dgvLivresListe.SelectedRows[0].DataBoundItem;
                 // Récupération des nouvelles informations saisies
                 string id = selectedLivre.Id;
@@ -883,7 +883,11 @@ namespace MediaTekDocuments.view
             }
         }
 
-
+        /// <summary>
+        /// Modification d'un dvd et du document associé
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModifierDvdModifier_Click(object sender, EventArgs e)
         {
             if (!txbDvdNumero.Text.Equals(""))
